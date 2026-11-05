@@ -76,9 +76,6 @@ This project helped me practise DOM manipulation, event handling, JavaScript gam
 ## 👩🏻‍💻 Author
 
 **Farhana Adnin**
-
-Computer Science (Software Engineering) Graduate
-
 GitHub: [FarhanaAdnin](https://github.com/FarhanaAdnin)
 
 ---
