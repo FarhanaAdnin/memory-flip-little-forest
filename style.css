@@ -1,0 +1,502 @@
+
+:root {
+    --green: #a6d64a;
+    --dark-green: #254323;
+    --pale-green: #eef7df;
+    --card-border: #aacd72;
+    --cream: #fffefa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
+    color: var(--dark-green);
+    background: radial-gradient(
+        circle at 50% 14%,
+        #fafdf1 0%,
+        #f1f8df 55%,
+        #e0eebd 100%
+    );
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    bottom: -70px;
+    width: 38vw;
+    height: 180px;
+    background: #b6d57d;
+    border-radius: 55% 65% 0 0;
+    z-index: -1;
+    opacity: 0.65;
+}
+
+body::before {
+    left: -60px;
+    transform: rotate(-7deg);
+}
+
+body::after {
+    right: -60px;
+    transform: rotate(6deg);
+}
+
+.game-shell {
+    width: 100%;
+    max-width: 660px;
+    background: var(--cream);
+    border-radius: 34px;
+    padding: 28px 32px;
+    box-shadow: 0 18px 55px rgba(114, 147, 64, 0.13);
+    position: relative;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.toolbar > label:first-child {
+    font-weight: 800;
+    font-size: 13px;
+}
+
+button,
+select {
+    font: inherit;
+}
+
+select {
+    border: 1px solid #e4e9dc;
+    border-radius: 13px;
+    padding: 10px 12px;
+    background: white;
+    color: #294425;
+    min-width: 145px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.pill {
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #b9e367, #a5d448);
+    padding: 11px 20px;
+    color: #20371b;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #8dbd43;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.pill:hover {
+    filter: brightness(0.98);
+    transform: translateY(-1px);
+}
+
+.pill:active {
+    transform: translateY(1px);
+}
+
+.sound-btn {
+    border: 1px solid #c5df9e;
+    border-radius: 999px;
+    background: #eef7df;
+    color: #254323;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.sound-btn:hover {
+    background: #dff0c5;
+    transform: translateY(-1px);
+}
+
+.sound-btn[aria-pressed="false"] {
+    background: #f1f1eb;
+    color: #7c8576;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    outline: 3px solid #5a922c;
+    outline-offset: 3px;
+}
+
+.timer-toggle {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.timer-toggle input {
+    accent-color: #659a42;
+    width: 16px;
+    height: 16px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 24px;
+}
+
+.stat {
+    background: #eef7de;
+    min-width: 110px;
+    text-align: center;
+    border-radius: 14px;
+    padding: 11px 17px;
+}
+
+.stat small {
+    display: block;
+    color: #51654c;
+    font-size: 12px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 25px;
+    line-height: 1.3;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    max-width: 480px;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.game-board.hard {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 550px;
+    gap: 8px;
+}
+
+.card {
+    appearance: none;
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    perspective: 900px;
+}
+
+.card-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.38s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card.flipped .card-inner,
+.card.matched .card-inner {
+    transform: rotateY(180deg);
+}
+
+.face {
+    position: absolute;
+    inset: 0;
+    border: 2px solid #b4d47a;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: 0 4px 11px rgba(136, 179, 95, 0.11);
+    overflow: hidden;
+}
+
+.back {
+    background: linear-gradient(135deg, #e2f2c9, #d7ebbc);
+    font-size: 34px;
+    color: #2d5433;
+}
+
+.front {
+    background: linear-gradient(150deg, #fbfff0, #eff9de);
+    transform: rotateY(180deg);
+}
+
+.front img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 2px rgba(116, 148, 76, 0.07));
+}
+
+.animal-fallback {
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1;
+}
+
+.card.matched .front {
+    background: #ecf9e3;
+    border-color: #9ac955;
+    box-shadow: 0 0 12px rgba(150, 205, 100, 0.2);
+}
+
+.card:disabled {
+    cursor: default;
+}
+
+.variant-label {
+    position: absolute;
+    right: 5px;
+    bottom: 4px;
+    background: #9bca5c;
+    color: #26421e;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+#message {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    min-height: 22px;
+    margin: 18px 0 12px;
+}
+
+.bottom-pill {
+    display: block;
+    margin: 0 auto;
+    padding: 11px 22px;
+    font-size: 13px;
+}
+
+.win-details {
+    text-align: center;
+    margin: 14px 0;
+}
+
+.win-details[hidden] {
+    display: none;
+}
+
+.win-heading {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.stars {
+    font-size: 31px;
+    letter-spacing: 4px;
+    color: #eebf45;
+    margin-top: 10px;
+}
+
+.final-score {
+    font-size: 12px;
+    color: #5a7555;
+    margin: 7px 0;
+}
+
+.decor {
+    position: fixed;
+    font-size: 45px;
+    color: #93bc65;
+    opacity: 0.6;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.decor-left {
+    left: 5%;
+    top: 0;
+}
+
+.decor-right {
+    right: 5%;
+    top: 0;
+}
+
+.garden {
+    position: fixed;
+    bottom: 15px;
+    font-size: 55px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.garden-left {
+    left: 5%;
+}
+
+.garden-right {
+    right: 5%;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 800px) {
+    .game-shell {
+        max-width: 600px;
+        border-radius: 28px;
+        padding: 24px 22px;
+    }
+
+    .game-board {
+        max-width: 450px;
+        gap: 9px;
+    }
+
+    .game-board.hard {
+        max-width: 510px;
+        gap: 7px;
+    }
+
+    .decor {
+        font-size: 36px;
+    }
+
+    .garden {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px 8px;
+    }
+
+    .game-shell {
+        width: 100%;
+        max-width: 400px;
+        padding: 18px 12px;
+        border-radius: 22px;
+    }
+
+    .toolbar {
+        gap: 8px;
+    }
+
+    .toolbar > label:first-child {
+        font-size: 11px;
+    }
+
+    select {
+        min-width: 110px;
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    .pill,
+    .sound-btn {
+        padding: 9px 13px;
+        font-size: 11px;
+    }
+
+    .timer-toggle {
+        font-size: 11px;
+    }
+
+    .stats {
+        gap: 7px;
+        margin: 14px 0 18px;
+    }
+
+    .stat {
+        min-width: 0;
+        flex: 1;
+        padding: 7px 5px;
+    }
+
+    .stat small {
+        font-size: 10px;
+    }
+
+    .stat strong {
+        font-size: 19px;
+    }
+
+    .game-board {
+        max-width: 340px;
+        gap: 6px;
+    }
+
+    .game-board.hard {
+        max-width: 360px;
+        gap: 5px;
+    }
+
+    .face {
+        border-radius: 10px;
+    }
+
+    .back {
+        font-size: 25px;
+    }
+
+    .front img {
+        width: 82%;
+        height: 82%;
+    }
+
+    .animal-fallback {
+        font-size: 28px;
+    }
+
+    #message {
+        font-size: 11px;
+        margin: 14px 0 9px;
+    }
+
+    .win-heading {
+        font-size: 15px;
+    }
+
+    .stars {
+        font-size: 23px;
+    }
+
+    .decor {
+        font-size: 27px;
+    }
+
+    .garden {
+        font-size: 35px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-inner,
+    .pill,
+    .sound-btn {
+        transition: none;
+    }
+}

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Flip | Little Forest</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="decor decor-left" aria-hidden="true">✿</div>
+    <div class="decor decor-right" aria-hidden="true">✿</div>
+
+    <main class="game-shell">
+        <div class="toolbar">
+            <label for="difficulty">Choose a challenge</label>
+
+            <select id="difficulty">
+                <option value="easy">Easy · 6 pairs</option>
+                <option value="medium">Medium · 8 pairs</option>
+                <option value="hard">Hard · 10 pairs</option>
+            </select>
+
+            <button id="new-game" class="pill" type="button">
+                New game
+            </button>
+
+            <button id="sound-btn" class="sound-btn" type="button"
+                    aria-pressed="true">
+                🔊 Sound On
+            </button>
+
+            <label class="timer-toggle">
+                <input id="timer-toggle" type="checkbox" checked>
+                Timer
+            </label>
+        </div>
+
+        <section class="stats" aria-label="Game statistics">
+            <div class="stat">
+                <small>Moves</small>
+                <strong id="moves">0</strong>
+            </div>
+
+            <div class="stat">
+                <small>Pairs found</small>
+                <strong id="pairs">0 / 6</strong>
+            </div>
+
+            <div class="stat" id="time-stat">
+                <small>Time</small>
+                <strong id="time">00:00</strong>
+            </div>
+        </section>
+
+        <section id="board" class="game-board"
+                 aria-label="Memory matching cards"></section>
+
+        <p id="message" role="status" aria-live="polite">
+            Flip two cards to find a match!
+        </p>
+
+        <div id="win-details" class="win-details" hidden>
+            <div class="win-heading">
+                ✨ Yay! You found all the pairs!
+            </div>
+            <div id="stars" class="stars" aria-label="Stars earned"></div>
+            <p id="final-score" class="final-score"></p>
+        </div>
+
+        <button id="again" class="pill bottom-pill" type="button">
+            Play again ↻
+        </button>
+    </main>
+
+    <div class="garden garden-left" aria-hidden="true">🌼</div>
+    <div class="garden garden-right" aria-hidden="true">🐰</div>
+</body>
+</html>
