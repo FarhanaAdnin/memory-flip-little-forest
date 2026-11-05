@@ -85,7 +85,6 @@ GitHub: [FarhanaAdnin](https://github.com/FarhanaAdnin)
 
 *Made with 💚 and a little forest magic.*
 
-
 ## 📸 Game Preview
 
-![Memory Flip — Little Forest Screenshot](downloads/Memory_Flip_Games_Screenshot.png)
+[Memory Flip — Little Forest Screenshot](https://github.com/FarhanaAdnin/memory-flip-little-forest/blob/main/downloads/Memory_Flip_Games_Screenshot.png)
