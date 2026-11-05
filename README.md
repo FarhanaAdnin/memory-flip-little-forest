@@ -27,7 +27,7 @@ The game features a soft pastel-green design, interactive card animations, and p
 
 Add a screenshot of the game interface here.
 
-![Memory Flip Game Screenshot](screenshots/game-preview.png)
+![Memory Flip Game Screenshot](Memory_Flip_Games_Screenshot.png)
 
 ## 🚀 Getting Started
 
@@ -84,7 +84,3 @@ GitHub: [FarhanaAdnin](https://github.com/FarhanaAdnin)
 ---
 
 *Made with 💚 and a little forest magic.*
-
-## 📸 Game Preview
-
-[Memory Flip — Little Forest Screenshot](https://github.com/FarhanaAdnin/memory-flip-little-forest/blob/main/downloads/Memory_Flip_Games_Screenshot.png)
